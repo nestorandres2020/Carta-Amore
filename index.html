@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love Letter</title>
+    <link rel="stylesheet" href="main.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            font-family: 'Georgia', serif;
+        }
+        
+        .redirect-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+        }
+        
+        .heart {
+            color: #e91e63;
+            font-size: 3em;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .loading-text {
+            color: #333;
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+        
+        .redirect-message {
+            color: #666;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="redirect-container">
+        <div class="heart">💕</div>
+        <div class="loading-text">Love Letter</div>
+        <div class="redirect-message">Preparing your heartfelt message...</div>
+    </div>
+
+    <script>
+        // Redirect to the main love letter page after a brief delay
+        setTimeout(function() {
+            window.location.href = 'main_love_letter.html';
+        }, 2000);
+    </script>
+<script id="dhws-dataInjector" src="dhws-data-injector.js"></script>
+</body>
+</html>

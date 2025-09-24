@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carta de Amor - Para Ti</title>
+    <link rel="stylesheet" href="main.css" />
+    <style>
+      /* Floating hearts animation */
+      @keyframes float-hearts {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .floating-heart {
+        position: fixed;
+        color: #e8a5a5;
+        font-size: 20px;
+        animation: float-hearts 8s linear infinite;
+        pointer-events: none;
+        z-index: 10;
+      }
+
+      /* Gentle pulse animation for interactive elements */
+      @keyframes gentle-pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .pulse-gentle {
+        animation: gentle-pulse 2s ease-in-out infinite;
+      }
+
+      /* Fade in animation */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+
+      /* Typewriter effect */
+      @keyframes typewriter {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      .typewriter {
+        overflow: hidden;
+        border-right: 2px solid #e8a5a5;
+        white-space: nowrap;
+        animation: typewriter 3s steps(40, end),
+          blink-caret 0.75s step-end infinite;
+      }
+
+      @keyframes blink-caret {
+        from,
+        to {
+          border-color: transparent;
+        }
+        50% {
+          border-color: #e8a5a5;
+        }
+      }
+
+      /* Parallax background */
+      .parallax-bg {
+        background: linear-gradient(
+          135deg,
+          #fdf8f3 0%,
+          #f9f1e6 50%,
+          #fdf5f5 100%
+        );
+        background-attachment: fixed;
+        background-size: 400% 400%;
+        animation: gradient-shift 15s ease infinite;
+      }
+
+      @keyframes gradient-shift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Heart button hover effect */
+      .heart-btn:hover {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 10px rgba(232, 165, 165, 0.5));
+      }
+
+      /* Smooth reveal on scroll */
+      .reveal {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.8s ease-out;
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+    <script
+      type="module"
+      src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Flovelette2402back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"
+    ></script>
+  </head>
+  <body
+    class="parallax-bg min-h-screen font-source text-text-primary overflow-x-hidden"
+  >
+    <!-- Floating Navigation -->
+    <nav
+      class="fixed top-6 right-6 z-50 bg-white/80 backdrop-blur-sm rounded-full shadow-gentle p-2"
+    >
+      <div class="flex space-x-2">
+        <a
+          href="main_love_letter.html"
+          class="p-2 rounded-full bg-primary-100 text-primary-600 hover:bg-primary-200 transition-gentle"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+            />
+          </svg>
+        </a>
+        <a
+          href="just_because.html"
+          class="p-2 rounded-full bg-secondary-100 text-secondary-600 hover:bg-secondary-200 transition-gentle"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              fill-rule="evenodd"
+              d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="min-h-screen flex items-center justify-center relative px-4"
+    >
+      <div class="absolute inset-0 overflow-hidden">
+        <div
+          class="absolute top-20 left-10 w-32 h-32 bg-primary-100 rounded-full opacity-30 animate-pulse"
+        ></div>
+        <div
+          class="absolute bottom-32 right-16 w-24 h-24 bg-secondary-100 rounded-full opacity-40 animate-pulse"
+          style="animation-delay: 1s"
+        ></div>
+        <div
+          class="absolute top-1/2 left-1/4 w-16 h-16 bg-accent-100 rounded-full opacity-25 animate-pulse"
+          style="animation-delay: 2s"
+        ></div>
+      </div>
+
+      <div class="text-center max-w-4xl mx-auto relative z-10">
+        <div class="mb-8 fade-in-up">
+          <img
+            src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Romantic hearts"
+            class="w-24 h-24 mx-auto rounded-full object-cover shadow-warm pulse-gentle"
+            onerror="this.src='https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;"
+          />
+        </div>
+
+        <h1
+          class="font-vibes text-6xl md:text-8xl text-primary-600 mb-6 typewriter"
+        >
+          Para Ti, Mi Bella
+        </h1>
+
+        <p
+          class="font-source text-xl md:text-2xl text-text-secondary mb-8 fade-in-up"
+          style="animation-delay: 3s"
+        >
+          Una carta digital llena de todo lo que mi corazón quiere decirte
+        </p>
+
+        <button
+          onclick="scrollToLetter()"
+          class="heart-btn bg-primary-500 hover:bg-primary-600 text-white px-8 py-4 rounded-full font-montserrat font-semibold text-lg shadow-gentle transition-all duration-300 fade-in-up"
+          style="animation-delay: 4s"
+        >
+          Leer Mi Carta ❤️
+        </button>
+      </div>
+    </section>
+
+    <!-- Main Love Letter Section -->
+    <section id="love-letter" class="py-20 px-4">
+      <div class="max-w-4xl mx-auto">
+        <div
+          class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-warm p-8 md:p-12 reveal"
+        >
+          <div class="text-center mb-12">
+            <h2 class="font-dancing text-4xl md:text-5xl text-primary-600 mb-4">
+              Mi Querida...
+            </h2>
+            <div
+              class="w-24 h-1 bg-gradient-to-r from-primary-400 to-secondary-400 mx-auto rounded-full"
+            ></div>
+          </div>
+
+          <div class="space-y-8 text-lg leading-relaxed">
+            <p class="reveal">
+              No sé por dónde empezar, pero supongo que el corazón sabe mejor
+              que la mente. Desde el momento en que entraste en mi vida, todo
+              cambió. No fue algo dramático, sino algo suave y hermoso, como
+              cuando el amanecer pinta el cielo de colores que nunca pensaste
+              que existían.
+            </p>
+
+            <div
+              class="bg-primary-50 rounded-2xl p-6 reveal border-l-4 border-primary-400"
+            >
+              <p class="font-dancing text-2xl text-primary-700 mb-4">
+                "Eres la razón por la que creo en los cuentos de hadas"
+              </p>
+              <p>
+                Cada mensaje tuyo se siente como una página nueva en el libro
+                más hermoso que jamás he leído. Tus palabras, tus emojis y tus
+                stickers iluminan mis días, y cada conversación contigo hace que
+                mi corazón sonría sin importar la distancia.
+              </p>
+            </div>
+
+            <p class="reveal">
+              Recuerdo perfectamente el día que nos conocimos en el chat. Te
+              mandé un mensaje por Litmatch jajaja, y tú al principio no querías
+              darme tu número jejeje… pero al final aceptaste. Nunca pensé que
+              te convertirías en alguien tan especial para mí, incluso solo a
+              través de mensajes.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6 reveal">
+              <div class="bg-secondary-50 rounded-2xl p-6">
+                <h3 class="font-dancing text-2xl text-secondary-700 mb-3">
+                  Lo que amo de ti
+                </h3>
+                <ul class="space-y-2 text-text-secondary">
+                  <li class="flex items-center">
+                    <span class="text-secondary-500 mr-2">💕</span>
+                    Tu forma de reír cuando algo te divierte de verdad
+                  </li>
+                  <li class="flex items-center">
+                    <span class="text-secondary-500 mr-2">💕</span>
+                    Tus “ojos” que imagino en cada sticker o foto que compartes
+                  </li>
+                  <li class="flex items-center">
+                    <span class="text-secondary-500 mr-2">💕</span>
+                    Lo hermosa que eres, según se refleja en tu forma de
+                    expresarte
+                  </li>
+                  <li class="flex items-center">
+                    <span class="text-secondary-500 mr-2">💕</span>
+                    Cómo me haces sonreír solo con tus palabras o stickers
+                  </li>
+                </ul>
+              </div>
+
+              <div class="bg-accent-50 rounded-2xl p-6">
+                <h3 class="font-dancing text-2xl text-accent-700 mb-3">
+                  Nuestros momentos
+                </h3>
+                <ul class="space-y-2 text-text-secondary">
+                  <li class="flex items-center">
+                    <span class="text-accent-500 mr-2">✨</span>
+                    Aquella tarde que tus stickers de chinita me hicieron
+                    sonreír como un tonto
+                  </li>
+                  <li class="flex items-center">
+                    <span class="text-accent-500 mr-2">✨</span>
+                    Yo enviándote mis stickers de gatitos y disfrutando cada
+                    respuesta tuya
+                  </li>
+                  <li class="flex items-center">
+                    <span class="text-accent-500 mr-2">✨</span>
+                    Nuestras conversaciones que se hicieron madrugada y me
+                    hicieron olvidar el tiempo
+                  </li>
+                  <li class="flex items-center">
+                    <span class="text-accent-500 mr-2">✨</span>
+                    Cada mensaje tuyo que siempre logra alegrarme el día
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <p class="reveal">
+              Quiero que sepas que no eres solo alguien especial en mi vida;
+              eres la persona que hace que todo tenga sentido. Contigo he
+              aprendido que el amor no es solo una palabra bonita, sino una
+              forma de vivir, de respirar, de existir.
+            </p>
+
+            <div class="text-center reveal">
+              <div
+                class="inline-block bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl p-8 text-white"
+              >
+                <h3 class="font-vibes text-3xl mb-4">Mi Promesa Para Ti</h3>
+                <p class="text-lg">
+                  Prometo siempre estar para ti, acompañarte en cada mensaje y
+                  alegrar tus días con palabras, emojis y stickers. Y algún día,
+                  espero que podamos encontrarnos en persona y compartir todos
+                  estos momentos de manera real.
+                </p>
+              </div>
+            </div>
+
+            <p
+              class="reveal text-center font-dancing text-2xl text-primary-600"
+            >
+              Eres mi presente más hermoso y mi futuro más esperado.
+              <br />
+              Con todo mi amor,
+              <br />
+              <span class="text-3xl">Tu enamorado ❤️</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Hearts Section -->
+    <section class="py-16 px-4">
+      <div class="max-w-2xl mx-auto text-center reveal">
+        <h3 class="font-dancing text-3xl text-primary-600 mb-8">
+          Haz clic en los corazones para una sorpresa 💕
+        </h3>
+        <div class="flex justify-center space-x-4 flex-wrap gap-4">
+          <button
+            onclick="createHeartExplosion(this)"
+            class="heart-btn text-4xl hover:scale-110 transition-all duration-300 p-4"
+          >
+            ❤️
+          </button>
+          <button
+            onclick="createHeartExplosion(this)"
+            class="heart-btn text-4xl hover:scale-110 transition-all duration-300 p-4"
+          >
+            💕
+          </button>
+          <button
+            onclick="createHeartExplosion(this)"
+            class="heart-btn text-4xl hover:scale-110 transition-all duration-300 p-4"
+          >
+            💖
+          </button>
+          <button
+            onclick="createHeartExplosion(this)"
+            class="heart-btn text-4xl hover:scale-110 transition-all duration-300 p-4"
+          >
+            💗
+          </button>
+          <button
+            onclick="createHeartExplosion(this)"
+            class="heart-btn text-4xl hover:scale-110 transition-all duration-300 p-4"
+          >
+            💝
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 text-center">
+      <div class="max-w-2xl mx-auto reveal">
+        <p class="text-text-secondary mb-4">
+          Esta carta fue creada con todo mi amor el 24 de septiembre de 2025
+        </p>
+        <div class="flex justify-center space-x-6">
+          <a
+            href="main_love_letter.html"
+            class="text-primary-600 hover:text-primary-700 transition-gentle"
+          >
+            Carta Principal
+          </a>
+          <a
+            href="just_because.html"
+            class="text-secondary-600 hover:text-secondary-700 transition-gentle"
+          >
+            Solo Porque Sí
+          </a>
+        </div>
+        <p class="text-sm text-text-secondary mt-4">
+          © 2025 Hecho con ❤️ para ti
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Smooth scrolling
+      function scrollToLetter() {
+        document.getElementById("love-letter").scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+
+      // Reveal animation on scroll
+      function revealOnScroll() {
+        const reveals = document.querySelectorAll(".reveal");
+
+        reveals.forEach((reveal) => {
+          const windowHeight = window.innerHeight;
+          const elementTop = reveal.getBoundingClientRect().top;
+          const elementVisible = 150;
+
+          if (elementTop < windowHeight - elementVisible) {
+            reveal.classList.add("active");
+          }
+        });
+      }
+
+      // Floating hearts
+      function createFloatingHeart() {
+        const heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.className = "floating-heart";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDelay = Math.random() * 2 + "s";
+        heart.style.animationDuration = Math.random() * 3 + 5 + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 8000);
+      }
+
+      // Heart explosion effect
+      function createHeartExplosion(button) {
+        const hearts = ["❤️", "💕", "💖", "💗", "💝", "💘"];
+        const rect = button.getBoundingClientRect();
+
+        for (let i = 0; i < 8; i++) {
+          const heart = document.createElement("div");
+          heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+          heart.style.position = "fixed";
+          heart.style.left = rect.left + rect.width / 2 + "px";
+          heart.style.top = rect.top + rect.height / 2 + "px";
+          heart.style.fontSize = "20px";
+          heart.style.pointerEvents = "none";
+          heart.style.zIndex = "1000";
+          heart.style.transition = "all 1s ease-out";
+
+          document.body.appendChild(heart);
+
+          setTimeout(() => {
+            const angle = (i / 8) * Math.PI * 2;
+            const distance = 100 + Math.random() * 50;
+            heart.style.transform = `translate(${
+              Math.cos(angle) * distance
+            }px, ${Math.sin(angle) * distance}px) scale(0)`;
+            heart.style.opacity = "0";
+          }, 10);
+
+          setTimeout(() => {
+            heart.remove();
+          }, 1000);
+        }
+
+        // Show sweet message
+        const messages = [
+          "¡Eres increíble! 💕",
+          "¡Te amo mucho! ❤️",
+          "¡Eres mi todo! 💖",
+          "¡Mi corazón es tuyo! 💗",
+          "¡Eres perfecta! ✨",
+        ];
+
+        const message = document.createElement("div");
+        message.innerHTML =
+          messages[Math.floor(Math.random() * messages.length)];
+        message.className =
+          "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary-500 text-white px-6 py-3 rounded-full font-dancing text-xl z-50 shadow-warm";
+        message.style.animation = "fadeInUp 0.5s ease-out forwards";
+
+        document.body.appendChild(message);
+
+        setTimeout(() => {
+          message.style.animation = "fadeInUp 0.5s ease-out reverse forwards";
+          setTimeout(() => message.remove(), 500);
+        }, 2000);
+      }
+
+      // Initialize animations
+      window.addEventListener("scroll", revealOnScroll);
+      window.addEventListener("load", revealOnScroll);
+
+      // Create floating hearts periodically
+      setInterval(createFloatingHeart, 3000);
+
+      // Initial floating hearts
+      setTimeout(() => createFloatingHeart(), 1000);
+      setTimeout(() => createFloatingHeart(), 2000);
+    </script>
+    <script id="dhws-dataInjector" src="dhws-data-injector.js"></script>
+  </body>
+</html>

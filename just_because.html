@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solo Porque Sí - Notas de Amor</title>
+    <link rel="stylesheet" href="main.css" />
+    <style>
+        /* Floating hearts animation */
+        @keyframes float-hearts {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        .floating-heart {
+            position: fixed;
+            color: #E8A5A5;
+            font-size: 20px;
+            animation: float-hearts 8s linear infinite;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        /* Card flip animation */
+        @keyframes cardFlip {
+            0% { transform: rotateY(0deg); }
+            50% { transform: rotateY(90deg); }
+            100% { transform: rotateY(0deg); }
+        }
+        
+        .flip-card {
+            animation: cardFlip 0.6s ease-in-out;
+        }
+        
+        /* Gentle pulse animation */
+        @keyframes gentle-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .pulse-gentle {
+            animation: gentle-pulse 2s ease-in-out infinite;
+        }
+        
+        /* Fade in animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        /* Sparkle animation */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        
+        .sparkle {
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+        
+        /* Parallax background */
+        .parallax-bg {
+            background: linear-gradient(135deg, #FDF8F3 0%, #F9F1E6 50%, #FDF5F5 100%);
+            background-attachment: fixed;
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Love note reveal animation */
+        @keyframes noteReveal {
+            0% { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.9);
+                filter: blur(5px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+        
+        .note-reveal {
+            animation: noteReveal 0.8s ease-out forwards;
+        }
+        
+        /* Interactive hover effects */
+        .love-note:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 40px rgba(232, 165, 165, 0.25);
+        }
+        
+        /* Smooth reveal on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Hidden note styles */
+        .hidden-note {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.5s ease-out;
+        }
+        
+        .hidden-note.revealed {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Flovelette2402back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="parallax-bg min-h-screen font-source text-text-primary overflow-x-hidden">
+    
+    <!-- Floating Navigation -->
+    <nav class="fixed top-6 right-6 z-50 bg-white/80 backdrop-blur-sm rounded-full shadow-gentle p-2">
+        <div class="flex space-x-2">
+            <a href="main_love_letter.html" class="p-2 rounded-full bg-primary-100 text-primary-600 hover:bg-primary-200 transition-gentle">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                </svg>
+            </a>
+            <a href="just_because.html" class="p-2 rounded-full bg-secondary-100 text-secondary-600 hover:bg-secondary-200 transition-gentle">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative px-4">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-20 left-10 w-32 h-32 bg-primary-100 rounded-full opacity-30 animate-pulse"></div>
+            <div class="absolute bottom-32 right-16 w-24 h-24 bg-secondary-100 rounded-full opacity-40 animate-pulse" style="animation-delay: 1s;"></div>
+            <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-accent-100 rounded-full opacity-25 animate-pulse" style="animation-delay: 2s;"></div>
+            <!-- Sparkle elements -->
+            <div class="absolute top-1/4 right-1/3 text-accent-500 text-2xl sparkle" style="animation-delay: 0.5s;">✨</div>
+            <div class="absolute bottom-1/4 left-1/3 text-accent-500 text-xl sparkle" style="animation-delay: 1.5s;">✨</div>
+            <div class="absolute top-3/4 right-1/4 text-accent-500 text-lg sparkle" style="animation-delay: 2.5s;">✨</div>
+        </div>
+        
+        <div class="text-center max-w-4xl mx-auto relative z-10">
+            <div class="mb-8 fade-in-up">
+                <img src="https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Romantic surprise" class="w-24 h-24 mx-auto rounded-full object-cover shadow-warm pulse-gentle" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+            </div>
+            
+            <h1 class="font-vibes text-6xl md:text-8xl text-primary-600 mb-6 fade-in-up">
+                Solo Porque Sí
+            </h1>
+            
+            <p class="font-source text-xl md:text-2xl text-text-secondary mb-8 fade-in-up" style="animation-delay: 0.5s;">
+                Pequeñas notas de amor que nacen del corazón sin razón especial
+            </p>
+            
+            <button onclick="generateRandomNote()" class="bg-primary-500 hover:bg-primary-600 text-white px-8 py-4 rounded-full font-montserrat font-semibold text-lg shadow-gentle transition-all duration-300 fade-in-up pulse-gentle" style="animation-delay: 1s;">
+                Descubre Una Nota ❤️
+            </button>
+        </div>
+    </section>
+
+    <!-- Random Love Notes Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-dancing text-4xl md:text-5xl text-primary-600 mb-4">
+                    Colección de Momentos
+                </h2>
+                <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+                    Cada nota es una pequeña declaración de amor, un recordatorio de lo especial que eres
+                </p>
+                <div class="w-24 h-1 bg-gradient-to-r from-primary-400 to-secondary-400 mx-auto rounded-full mt-6"></div>
+            </div>
+            
+            <!-- Main Random Note Display -->
+            <div id="main-note-container" class="mb-16 reveal">
+                <div id="main-note" class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-warm p-8 md:p-12 max-w-3xl mx-auto love-note transition-all duration-300">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">💕</div>
+                        <p class="font-dancing text-2xl md:text-3xl text-primary-600 mb-6" id="note-text">
+                            Haz clic en "Descubre Una Nota" para comenzar...
+                        </p>
+                        <div class="text-sm text-text-secondary" id="note-date">
+                            Esperando tu primera nota...
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Love Notes Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                <!-- Note 1 -->
+                <div class="bg-primary-50 rounded-2xl p-6 love-note transition-all duration-300 reveal border-l-4 border-primary-400">
+                    <div class="text-2xl mb-3">🌸</div>
+                    <p class="font-dancing text-xl text-primary-700 mb-3">
+                        "Tu sonrisa es mi café de la mañana"
+                    </p>
+                    <p class="text-text-secondary text-sm">
+                        Porque cada día que empiezo viéndote sonreír se convierte automáticamente en un buen día.
+                    </p>
+                    <button onclick="shareNote(this)" class="mt-4 text-primary-600 hover:text-primary-700 text-sm font-medium">
+                        Compartir 💖
+                    </button>
+                </div>
+                
+                <!-- Note 2 -->
+                <div class="bg-secondary-50 rounded-2xl p-6 love-note transition-all duration-300 reveal border-l-4 border-secondary-400">
+                    <div class="text-2xl mb-3">🦋</div>
+                    <p class="font-dancing text-xl text-secondary-700 mb-3">
+                        "Eres mi mariposa favorita"
+                    </p>
+                    <p class="text-text-secondary text-sm">
+                        Delicada, hermosa y libre. Cada vez que te veo siento esas mariposas en el estómago.
+                    </p>
+                    <button onclick="shareNote(this)" class="mt-4 text-secondary-600 hover:text-secondary-700 text-sm font-medium">
+                        Compartir 💖
+                    </button>
+                </div>
+                
+                <!-- Note 3 -->
+                <div class="bg-accent-50 rounded-2xl p-6 love-note transition-all duration-300 reveal border-l-4 border-accent-400">
+                    <div class="text-2xl mb-3">⭐</div>
+                    <p class="font-dancing text-xl text-accent-700 mb-3">
+                        "Eres mi estrella del norte"
+                    </p>
+                    <p class="text-text-secondary text-sm">
+                        La que me guía cuando me siento perdido, la luz que siempre me lleva a casa.
+                    </p>
+                    <button onclick="shareNote(this)" class="mt-4 text-accent-600 hover:text-accent-700 text-sm font-medium">
+                        Compartir 💖
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Hidden Surprise Notes -->
+            <div class="text-center mb-12 reveal">
+                <h3 class="font-dancing text-3xl text-primary-600 mb-6">
+                    Sorpresas Escondidas
+                </h3>
+                <p class="text-text-secondary mb-8">
+                    Haz clic en los corazones para descubrir notas especiales
+                </p>
+                <div class="flex justify-center space-x-4 flex-wrap gap-4">
+                    <button onclick="revealHiddenNote(1)" class="text-4xl hover:scale-110 transition-all duration-300 p-4 hidden-heart">💝</button>
+                    <button onclick="revealHiddenNote(2)" class="text-4xl hover:scale-110 transition-all duration-300 p-4 hidden-heart">💌</button>
+                    <button onclick="revealHiddenNote(3)" class="text-4xl hover:scale-110 transition-all duration-300 p-4 hidden-heart">💐</button>
+                    <button onclick="revealHiddenNote(4)" class="text-4xl hover:scale-110 transition-all duration-300 p-4 hidden-heart">🌹</button>
+                    <button onclick="revealHiddenNote(5)" class="text-4xl hover:scale-110 transition-all duration-300 p-4 hidden-heart">✨</button>
+                </div>
+            </div>
+            
+            <!-- Hidden Notes Container -->
+            <div id="hidden-notes-container" class="space-y-6">
+                <!-- Hidden notes will be dynamically inserted here -->
+            </div>
+            
+            <!-- Interactive Quote Generator -->
+            <div class="bg-gradient-to-r from-primary-500 to-secondary-500 rounded-3xl p-8 md:p-12 text-white text-center reveal">
+                <h3 class="font-vibes text-3xl md:text-4xl mb-6">
+                    Generador de Frases de Amor
+                </h3>
+                <p class="text-lg mb-8 opacity-90">
+                    Cada clic genera una nueva frase romántica solo para ti
+                </p>
+                <button onclick="generateLoveQuote()" class="bg-white text-primary-600 px-8 py-4 rounded-full font-montserrat font-semibold text-lg shadow-gentle hover:shadow-warm transition-all duration-300 hover:scale-105">
+                    Nueva Frase 💫
+                </button>
+                <div id="love-quote-container" class="mt-8">
+                    <p id="love-quote" class="font-dancing text-2xl md:text-3xl">
+                        Haz clic para descubrir tu primera frase...
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memory Moments Section -->
+    <section class="py-20 px-4 bg-white/30">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-dancing text-4xl md:text-5xl text-primary-600 mb-4">
+                    Momentos Especiales
+                </h2>
+                <p class="text-lg text-text-secondary">
+                    Pequeños recuerdos que guardan grandes sentimientos
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="reveal">
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-gentle">
+                        <img src="https://images.pixabay.com/photo/2017/02/15/10/39/salad-2068220_1280.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Momento especial" class="w-full h-48 object-cover rounded-xl mb-4" onerror="this.src='https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+                        <h3 class="font-dancing text-2xl text-primary-600 mb-2">
+                            Nuestra Primera Cita
+                        </h3>
+                        <p class="text-text-secondary">
+                            Recuerdo cada detalle de ese día. Tu nerviosismo me parecía adorable, 
+                            y cuando finalmente te relajaste, supe que había encontrado algo especial.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="reveal">
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-gentle">
+                        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Momento romántico" class="w-full h-48 object-cover rounded-xl mb-4" onerror="this.src='https://images.pixabay.com/photo/2017/02/15/10/39/salad-2068220_1280.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+                        <h3 class="font-dancing text-2xl text-secondary-600 mb-2">
+                            Cuando Me Dijiste...
+                        </h3>
+                        <p class="text-text-secondary">
+                            "Me gusta como me miras cuando hablo de mis sueños." Esa frase se quedó 
+                            grabada en mi corazón para siempre.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 text-center">
+        <div class="max-w-2xl mx-auto reveal">
+            <p class="text-text-secondary mb-4">
+                Cada nota fue escrita pensando en ti el 24 de septiembre de 2025
+            </p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="main_love_letter.html" class="text-primary-600 hover:text-primary-700 transition-gentle">
+                    Carta Principal
+                </a>
+                <a href="just_because.html" class="text-secondary-600 hover:text-secondary-700 transition-gentle">
+                    Solo Porque Sí
+                </a>
+            </div>
+            <p class="text-sm text-text-secondary">
+                © 2025 Hecho con ❤️ para ti
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Love notes database
+        const loveNotes = [
+            {
+                text: "Cada vez que sonríes, mi día se vuelve más brillante",
+                emoji: "☀️",
+                date: "Pensamiento matutino"
+            },
+            {
+                text: "Eres la razón por la que creo en los finales felices",
+                emoji: "📖",
+                date: "Reflexión nocturna"
+            },
+            {
+                text: "Tu risa es mi canción favorita",
+                emoji: "🎵",
+                date: "Momento musical"
+            },
+            {
+                text: "Contigo, hasta los lunes se sienten como viernes",
+                emoji: "🌈",
+                date: "Descubrimiento semanal"
+            },
+            {
+                text: "Eres mi lugar favorito en todo el mundo",
+                emoji: "🏠",
+                date: "Revelación del corazón"
+            },
+            {
+                text: "Tu forma de ver la vida me inspira a ser mejor",
+                emoji: "🌟",
+                date: "Momento de inspiración"
+            },
+            {
+                text: "Cada 'buenos días' tuyo vale más que mil deseos",
+                emoji: "🌅",
+                date: "Amanecer especial"
+            },
+            {
+                text: "Eres la respuesta a preguntas que no sabía que tenía",
+                emoji: "💫",
+                date: "Epifanía del alma"
+            }
+        ];
+
+        // Love quotes database
+        const loveQuotes = [
+            "En un mundo lleno de arte, tú eres mi obra maestra",
+            "Si pudiera elegir de nuevo, te elegiría en cada vida",
+            "Eres mi definición favorita de hogar",
+            "Tu amor es mi superpoder secreto",
+            "Contigo aprendí que el paraíso no es un lugar, es una persona",
+            "Eres la poesía que mi corazón siempre quiso escribir",
+            "En tus ojos encontré mi lugar favorito para perderme",
+            "Tu amor convierte lo ordinario en extraordinario",
+            "Eres mi razón favorita para sonreír sin motivo",
+            "Contigo, cada día es una nueva página de nuestro cuento de hadas"
+        ];
+
+        // Hidden notes database
+        const hiddenNotes = [
+            {
+                text: "Guardé este mensaje especial solo para ti: Eres la persona más increíble que conozco",
+                emoji: "💝",
+                style: "primary"
+            },
+            {
+                text: "Secreto revelado: Pienso en ti más de lo que debería admitir",
+                emoji: "💌",
+                style: "secondary"
+            },
+            {
+                text: "Nota escondida: Tu forma de reír cuando algo te da pena es adorable",
+                emoji: "💐",
+                style: "accent"
+            },
+            {
+                text: "Confesión secreta: Cada vez que me escribes, mi corazón hace un pequeño baile",
+                emoji: "🌹",
+                style: "primary"
+            },
+            {
+                text: "Mensaje oculto: Eres la razón por la que creo en la magia",
+                emoji: "✨",
+                style: "secondary"
+            }
+        ];
+
+        let usedNotes = [];
+        let usedQuotes = [];
+        let revealedHiddenNotes = [];
+
+        // Generate random love note
+        function generateRandomNote() {
+            if (usedNotes.length === loveNotes.length) {
+                usedNotes = []; // Reset when all notes have been shown
+            }
+            
+            let availableNotes = loveNotes.filter((note, index) => !usedNotes.includes(index));
+            let randomIndex = Math.floor(Math.random() * availableNotes.length);
+            let selectedNote = availableNotes[randomIndex];
+            let originalIndex = loveNotes.indexOf(selectedNote);
+            
+            usedNotes.push(originalIndex);
+            
+            const noteContainer = document.getElementById('main-note');
+            noteContainer.classList.add('flip-card');
+            
+            setTimeout(() => {
+                document.getElementById('note-text').textContent = selectedNote.text;
+                document.getElementById('note-date').textContent = selectedNote.date;
+                noteContainer.querySelector('.text-4xl').textContent = selectedNote.emoji;
+                noteContainer.classList.remove('flip-card');
+                noteContainer.classList.add('note-reveal');
+                
+                // Create heart explosion
+                createHeartExplosion(document.querySelector('button[onclick="generateRandomNote()"]'));
+            }, 300);
+        }
+
+        // Generate love quote
+        function generateLoveQuote() {
+            if (usedQuotes.length === loveQuotes.length) {
+                usedQuotes = []; // Reset when all quotes have been shown
+            }
+            
+            let availableQuotes = loveQuotes.filter((quote, index) => !usedQuotes.includes(index));
+            let randomIndex = Math.floor(Math.random() * availableQuotes.length);
+            let selectedQuote = availableQuotes[randomIndex];
+            let originalIndex = loveQuotes.indexOf(selectedQuote);
+            
+            usedQuotes.push(originalIndex);
+            
+            const quoteElement = document.getElementById('love-quote');
+            quoteElement.style.opacity = '0';
+            quoteElement.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                quoteElement.textContent = selectedQuote;
+                quoteElement.style.opacity = '1';
+                quoteElement.style.transform = 'translateY(0)';
+                quoteElement.style.transition = 'all 0.5s ease-out';
+            }, 200);
+        }
+
+        // Reveal hidden note
+        function revealHiddenNote(noteIndex) {
+            if (revealedHiddenNotes.includes(noteIndex)) return;
+            
+            revealedHiddenNotes.push(noteIndex);
+            const note = hiddenNotes[noteIndex - 1];
+            
+            const noteElement = document.createElement('div');
+            noteElement.className = `bg-${note.style}-50 rounded-2xl p-6 hidden-note border-l-4 border-${note.style}-400 max-w-2xl mx-auto`;
+            noteElement.innerHTML = `
+                <div class="text-center">
+                    <div class="text-3xl mb-4">${note.emoji}</div>
+                    <p class="font-dancing text-xl text-${note.style}-700 mb-3">
+                        ¡Sorpresa Descubierta!
+                    </p>
+                    <p class="text-text-secondary">
+                        ${note.text}
+                    </p>
+                    <button onclick="shareNote(this)" class="mt-4 text-${note.style}-600 hover:text-${note.style}-700 text-sm font-medium">
+                        Compartir 💖
+                    </button>
+                </div>
+            `;
+            
+            document.getElementById('hidden-notes-container').appendChild(noteElement);
+            
+            setTimeout(() => {
+                noteElement.classList.add('revealed');
+            }, 100);
+            
+            // Create sparkle effect
+            createSparkleEffect(document.querySelector(`button[onclick="revealHiddenNote(${noteIndex})"]`));
+        }
+
+        // Share note function
+        function shareNote(button) {
+            const noteText = button.parentElement.querySelector('p').textContent;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Nota de Amor',
+                    text: noteText,
+                    url: window.location.href
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                navigator.clipboard.writeText(noteText).then(() => {
+                    showMessage('¡Nota copiada al portapapeles! 💕');
+                });
+            }
+        }
+
+        // Show message function
+        function showMessage(text) {
+            const message = document.createElement('div');
+            message.innerHTML = text;
+            message.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary-500 text-white px-6 py-3 rounded-full font-dancing text-xl z-50 shadow-warm';
+            message.style.animation = 'fadeInUp 0.5s ease-out forwards';
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.style.animation = 'fadeInUp 0.5s ease-out reverse forwards';
+                setTimeout(() => message.remove(), 500);
+            }, 2000);
+        }
+
+        // Heart explosion effect
+        function createHeartExplosion(button) {
+            const hearts = ['❤️', '💕', '💖', '💗', '💝', '💘'];
+            const rect = button.getBoundingClientRect();
+            
+            for (let i = 0; i < 8; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.position = 'fixed';
+                heart.style.left = rect.left + rect.width/2 + 'px';
+                heart.style.top = rect.top + rect.height/2 + 'px';
+                heart.style.fontSize = '20px';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '1000';
+                heart.style.transition = 'all 1s ease-out';
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    const angle = (i / 8) * Math.PI * 2;
+                    const distance = 100 + Math.random() * 50;
+                    heart.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0)`;
+                    heart.style.opacity = '0';
+                }, 10);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 1000);
+            }
+        }
+
+        // Sparkle effect
+        function createSparkleEffect(button) {
+            const sparkles = ['✨', '⭐', '💫', '🌟'];
+            const rect = button.getBoundingClientRect();
+            
+            for (let i = 0; i < 6; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = rect.left + rect.width/2 + 'px';
+                sparkle.style.top = rect.top + rect.height/2 + 'px';
+                sparkle.style.fontSize = '16px';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.zIndex = '1000';
+                sparkle.style.transition = 'all 1.5s ease-out';
+                
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    const angle = (i / 6) * Math.PI * 2;
+                    const distance = 80 + Math.random() * 40;
+                    sparkle.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0)`;
+                    sparkle.style.opacity = '0';
+                }, 10);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1500);
+            }
+        }
+
+        // Reveal animation on scroll
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        }
+
+        // Floating hearts
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💕';
+            heart.className = 'floating-heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+
+        // Initialize animations
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+        
+        // Create floating hearts periodically
+        setInterval(createFloatingHeart, 4000);
+        
+        // Initial floating hearts
+        setTimeout(() => createFloatingHeart(), 1000);
+        setTimeout(() => createFloatingHeart(), 2500);
+        
+        // Auto-generate first note after page load
+        setTimeout(() => {
+            generateRandomNote();
+        }, 2000);
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
